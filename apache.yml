@@ -1,0 +1,37 @@
+---
+- hosts: web
+  remote_user: root
+  tasks: 
+    - name : Uninstall apache [if any]
+      when: ansible_system == 'Linux'
+      apt:
+        name: apache*
+        state: absent
+    - name: install apache
+      when: ansible_system == 'Linux'
+      apt:
+        name: apache2
+        state: latest
+
+    
+    - name: postgresql uninstallation [If Any]
+      when: ansible_system == 'Linux'
+      apt: 
+        name: postgres*
+        state: absent
+    - name: postgresql installation
+      when: ansible_system == 'Linux'
+      apt:
+        name: postgresql-9.3
+        state: latest
+
+
+  handlers: 
+    - name: start the apache service 
+      service:
+         name: apache2
+         state: restarted
+    - name: start postgresql service
+      service:
+         name: postgresql-9.3
+         state: restarted     
