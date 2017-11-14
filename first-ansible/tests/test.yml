@@ -1,5 +1,7 @@
 ---
-- hosts: localhost
-  remote_user: root
-  roles:
-    - azavea.packer
+- hosts: 54.202.180.153 
+  remote_user: deploy
+  tasks: 
+    - name: test connection
+      ping: 
+      remote_user: deploy 
